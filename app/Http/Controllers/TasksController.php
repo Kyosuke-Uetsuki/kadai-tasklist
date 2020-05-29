@@ -115,9 +115,9 @@ class TasksController extends Controller
     public function destroy($id)
     {
         // idの値でメッセージを検索して取得
-        $message = Message::findOrFail($id);
+        $task = Task::findOrFail($id);
         // メッセージを削除
-        $message->delete();
+        $task->delete();
 
         // トップページへリダイレクトさせる
         return redirect('/');
