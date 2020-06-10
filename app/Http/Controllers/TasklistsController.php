@@ -76,11 +76,9 @@ class TasklistsController extends Controller
         $tasklist = \App\Tasklist::findOrFail($id);
 
         if (\Auth::id() === $tasklist->user_id) {
-            
             return view('tasklists.edit', [
                 'tasklist' => $tasklist,
             ]);
-        
         }
     }
     
