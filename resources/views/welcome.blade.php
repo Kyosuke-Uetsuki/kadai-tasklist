@@ -2,20 +2,16 @@
 
 @section('content')
     @if (Auth::check())
-        {{ Auth::user()->name }}
-        <div class="mt-5">
-                @include('form.form')
-                <div>
-                    <table class="table mt-3 mb-0 table table-bordered">
-                        <tr>
-                            <th>id</th>
-                            <th class="text-center">タスク一覧</th>
-                            <th class="text-center">状態</th>
-                        </tr>
-                </div>
-                {{-- 投稿一覧 --}}
-                @include('tasklists.tasklists')
-        </div>
+        {!! link_to_route("tasks.create", "新規タスクの投稿",[],['class' => 'mb-2 btn btn-primary']) !!}
+        <table class="table mb-0">
+            <thead>
+                <tr>
+                    <th>id</th>
+                    <th class="text-center">タスク一覧</th>
+                    <th class="text-center">状態</th>
+                </tr>
+            </thead>
+    @include('tasklists.tasklists')
     @else
         <div class="center jumbotron">
             <div class="text-center">

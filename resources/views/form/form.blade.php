@@ -1,5 +1,5 @@
-{!! Form::open(['route' => 'tasklists.store']) !!}
-    <div class="form-group row">
+{!! Form::open(['route' => 'tasks.store']) !!}
+    <div class="form-group row mt-2">
         <label class="col-2 col-form-label">タスク:</label>
         {!! Form::textarea('content', old('content'), ['class' => 'col-10 form-control', 'rows' => '2']) !!}
     </div>

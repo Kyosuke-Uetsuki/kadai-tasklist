@@ -2,25 +2,16 @@
 
 @section('content')
 
-    <h1>タスク新規作成ページ</h1>
+    {{ Auth::user()->name }}    
+    @include('form.form')
+    <table class="table mt-5 mb-0">
+            <thead>
+                <tr>
+                    <th>id</th>
+                    <th class="text-center">タスク一覧</th>
+                    <th class="text-center">状態</th>
+                </tr>
+            </thead>
+    @include('tasklists.tasklists')
 
-    <div class="row">
-        <div class="col-6">
-            {!! Form::model($task, ['route' => 'tasks.store']) !!}
-
-                <div class="form-group">
-                    {!! Form::label('status', 'ステータス:') !!}
-                    {!! Form::text('status', null, ['class' => 'form-control']) !!}
-                </div>
-                
-                <div class="form-group">
-                    {!! Form::label('content', 'タスク:') !!}
-                    {!! Form::text('content', null, ['class' => 'form-control']) !!}
-                </div>
-
-                {!! Form::submit('投稿', ['class' => 'btn btn-primary']) !!}
-
-            {!! Form::close() !!}
-        </div>
-    </div>
 @endsection

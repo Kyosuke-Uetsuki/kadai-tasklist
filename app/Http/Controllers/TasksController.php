@@ -26,13 +26,14 @@ class TasksController extends Controller
                 'user' => $user,
                 'tasks' => $tasks,
             ];
+           
         }
-        else{
-            return redirect('/');
-        }
+        return view('welcome', $data); 
+        // else{
+        //     return redirect('/');
+        // }
         
-        // Welcomeビューでそれらを表示
-        return view('welcome', $data);
+        
     }
 
     /**
@@ -42,11 +43,22 @@ class TasksController extends Controller
      */
     public function create()
     {
-        $task = new Task;
         
-        return view("tasks.create" , [
-                 "task" => $task,
-            ]);
+        $data = [];
+        if (\Auth::check()) { // 認証済みの場合
+            // 認証済みユーザを取得
+            $user = \Auth::user();
+            // ユーザの投稿の一覧を作成日時の降順で取得
+            $tasks = $user->tasks()->orderBy('created_at', 'desc')->paginate(10);
+
+            $data = [
+                'user' => $user,
+                'tasks' => $tasks,
+            ];
+            
+        }
+        
+        return view('tasks.create', $data);
     }
 
     /**
@@ -90,6 +102,9 @@ class TasksController extends Controller
                 'task' => $task,
             ]);
         }
+        else{
+          return redirect('/');
+        }
     }
 
     /**
@@ -100,7 +115,7 @@ class TasksController extends Controller
      */
     public function edit($id)
     {
-        // idの値でメッセージを検索して取得
+        // idの値���メッセージを検索して取得
         $task = \App\Task::findOrFail($id);
 
         if (\Auth::id() === $task->user_id) {
@@ -108,7 +123,9 @@ class TasksController extends Controller
             return view('tasks.edit', [
                 'task' => $task,
             ]);
-        
+        }
+        else{
+          return redirect('/');
         }
     }
 
@@ -150,6 +167,7 @@ class TasksController extends Controller
         if (\Auth::id() === $task->user_id) {
             $task->delete();
         }
+        
 
         // トップページへリダイレクトさせる
         return redirect('/');

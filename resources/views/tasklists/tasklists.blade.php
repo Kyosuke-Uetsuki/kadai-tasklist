@@ -1,26 +1,20 @@
-@if (count($tasklists) > 0)
-@foreach ($tasklists as $tasklist)
+@if (count($tasks) > 0)
+@foreach ($tasks as $task)
         <div class="">
             <table class="table  my-0 col-12 ">
-                <tr>
-                {{-- メッセージ詳細ページへのリンク --}}
-                <td class="text-left">{!! link_to_route('tasklists.show', $tasklist->id, ['tasklist' => $tasklist->id] ) !!}</td>
-                 {{-- 内容 --}}
-                <td class="text-center">{!! nl2br(e($tasklist->content)) !!}</td>
-                 {{-- 状態 --}}
-                <td class="text-right">{!! (e($tasklist->status)) !!}</td>
-            </tr>
-            <!--<div class="">-->
-            <!--    @if (Auth::id() == $tasklist->user_id)-->
-            <!--        {{-- 投稿削除ボタンのフォーム --}}-->
-            <!--        {!! Form::open(['route' => ['tasklists.destroy', $tasklist->id], 'method' => 'delete']) !!}-->
-            <!--            {!! Form::submit('削除', ['class' => 'col-2 btn btn-dark btn-sm']) !!}-->
-            <!--        {!! Form::close() !!}-->
-            <!--    @endif-->
-            <!--</div>-->
+                <tbody>
+                    <tr>
+                    {{-- メッセージ詳細ページへのリンク --}}
+                        <td class="text-left">{!! link_to_route('tasks.show', $task->id, ['task' => $task->id] ) !!}</td>
+                         {{-- 内容 --}}
+                        <td class="text-center col-4">{!! nl2br(e($task->content)) !!}</td>
+                         {{-- 状態 --}}
+                        <td class="col-4">{!! (e($task->status)) !!}</td>
+                    </tr>
+                </tbody>
         </div>
         
 @endforeach
     {{-- ページネーションのリンク --}}
-    {{ $tasklists->links() }}
+    {{ $tasks->links() }}
 @endif
