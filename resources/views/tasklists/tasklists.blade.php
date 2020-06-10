@@ -1,22 +1,15 @@
 @if (count($tasklists) > 0)
 @foreach ($tasklists as $tasklist)
-        <div>
-            <table class="table mt-3 mb-0">
+        <div class="">
+            <table class="table  my-0 col-12 ">
                 <tr>
-                    <th>id</th>
-                    <th class="text-center">タスク一覧</th>
-                </tr>
-        </div>
-        <div class="form-group row">
-            <div class="col-4">
-                <table class="table">
-                    <tr>
-                         {{-- 投稿内容 --}}
-                        <td class="text-left">{!! link_to_route('tasklists.show', $tasklist->id, ['tasklist' => $tasklist->id] ) !!}</th>
-                        {{-- メッセージ詳細ページへのリンク --}}
-                        <td class="mb-0 text-center">{!! nl2br(e($tasklist->content)) !!}</th>
-                    </tr>
-            </div>
+                {{-- メッセージ詳細ページへのリンク --}}
+                <td class="text-left">{!! link_to_route('tasklists.show', $tasklist->id, ['tasklist' => $tasklist->id] ) !!}</td>
+                 {{-- 内容 --}}
+                <td class="text-center">{!! nl2br(e($tasklist->content)) !!}</td>
+                 {{-- 状態 --}}
+                <td class="text-right">{!! (e($tasklist->status)) !!}</td>
+            </tr>
             <!--<div class="">-->
             <!--    @if (Auth::id() == $tasklist->user_id)-->
             <!--        {{-- 投稿削除ボタンのフォーム --}}-->

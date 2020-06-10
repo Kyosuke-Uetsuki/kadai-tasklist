@@ -13,6 +13,10 @@
             <th>タスク</th>
             <td>{{ $tasklist->content }}</td>
         </tr>
+        <tr>
+            <th>状態</th>
+            <td>{{ $tasklist->status}}</td>
+        </tr>
     </table>
     <div class="d-flex flex-row">
     {{-- タスク編集ページへのリンク --}}

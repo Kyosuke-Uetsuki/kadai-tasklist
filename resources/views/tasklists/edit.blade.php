@@ -10,6 +10,10 @@
                 {!! Form::label('content', 'タスク:',) !!}
             <div class="form-group row">
                 {!! Form::text('content', null, ['class' => 'col-10 mr-2 form-control']) !!}
+            </div>
+                {!! Form::label('status', '状態:',) !!}
+            <div class="form-group row">
+                {!! Form::text('status', null, ['class' => 'col-10 mr-2 form-control']) !!}
                 {!! Form::submit('更新', ['class' => 'col-1 btn btn-primary']) !!}
             </div>
 
