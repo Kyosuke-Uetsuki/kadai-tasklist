@@ -20,11 +20,11 @@ class TasksController extends Controller
             // 認証済みユーザを取得
             $user = \Auth::user();
             // ユーザの投稿の一覧を作成日時の降順で取得
-            $tasklists = $user->tasklists()->orderBy('created_at', 'desc')->paginate(10);
+            $tasks = $user->tasks()->orderBy('created_at', 'desc')->paginate(10);
 
             $data = [
                 'user' => $user,
-                'tasklists' => $tasklists,
+                'tasks' => $tasks,
             ];
         }
         else{
@@ -64,7 +64,7 @@ class TasksController extends Controller
         ]);
 
         // 認証済みユーザ（閲覧者）の投稿として作成（リクエストされた値をもとに作成）
-        $request->user()->tasklists()->create([
+        $request->user()->tasks()->create([
             'content' => $request->content,
             'status' => $request->status,
             ]);
@@ -82,12 +82,12 @@ class TasksController extends Controller
     public function show($id)
     {
         // idの値でメッセージを検索して取得
-        $tasklist = \App\Tasklist::findOrFail($id);
+        $task = \App\Task::findOrFail($id);
         
-        if (\Auth::id() === $tasklist->user_id) {
+        if (\Auth::id() === $task->user_id) {
             
-            return view('tasklists.show', [
-                'tasklist' => $tasklist,
+            return view('tasks.show', [
+                'task' => $task,
             ]);
         }
     }
@@ -101,12 +101,12 @@ class TasksController extends Controller
     public function edit($id)
     {
         // idの値でメッセージを検索して取得
-        $tasklist = \App\Tasklist::findOrFail($id);
+        $task = \App\Task::findOrFail($id);
 
-        if (\Auth::id() === $tasklist->user_id) {
+        if (\Auth::id() === $task->user_id) {
             
-            return view('tasklists.edit', [
-                'tasklist' => $tasklist,
+            return view('tasks.edit', [
+                'task' => $task,
             ]);
         
         }
@@ -126,10 +126,10 @@ class TasksController extends Controller
             'status' => 'required|max:10',
         ]);
         
-        $tasklist = \App\Tasklist::findOrFail($id);
-        $tasklist->status = $request->status;
-        $tasklist->content = $request->content;
-        $tasklist->save();
+        $task = \App\Task::findOrFail($id);
+        $task->status = $request->status;
+        $task->content = $request->content;
+        $task->save();
 
         // トップページへリダイレクトさせる
         return redirect('/');
@@ -144,11 +144,11 @@ class TasksController extends Controller
     public function destroy($id)
     {
         // idの値で投稿を検索して取得
-        $tasklist = \App\Tasklist::findOrFail($id);
+        $task = \App\Task::findOrFail($id);
 
         // 認証済みユーザ（閲覧者）がその投稿の所有者である場合は、投稿を削除
-        if (\Auth::id() === $tasklist->user_id) {
-            $tasklist->delete();
+        if (\Auth::id() === $task->user_id) {
+            $task->delete();
         }
 
         // トップページへリダイレクトさせる
